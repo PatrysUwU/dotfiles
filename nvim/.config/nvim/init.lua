@@ -1,1 +1,4 @@
-require("patrys")
+require("config.set")
+require("config.remap")
+require("config.lazy")
+require("lazy").setup("plugins")
