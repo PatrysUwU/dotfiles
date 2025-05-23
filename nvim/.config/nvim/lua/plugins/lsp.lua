@@ -49,6 +49,13 @@ return {
 			},
 		})
 
+		vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+			pattern = { "compose.yaml", "compose.yml", "docker-compose.yaml", "docker-compose.yml" },
+			callback = function()
+				vim.bo.filetype = "yaml.docker-compose"
+			end,
+		})
+
 		local cmp = require("cmp")
 		vim.diagnostic.config({
 			virtual_text = true,
@@ -60,7 +67,7 @@ return {
 			},
 			mapping = cmp.mapping.preset.insert({
 				-- Enter key confirms completion item
-				["<CR>"] = cmp.mapping.confirm({ select = false }),
+				["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
 
 				-- Ctrl + space triggers completion menu
 				["<C-Space>"] = cmp.mapping.complete(),
